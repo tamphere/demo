@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block head %}
+
+<title>Welcome back!</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Decision Making Tool</h1>
+
+    <div class="img">
+        <img src="../static/image/kohi_main.png"
+    </div>
+
+    <form class= "some_form", action="/" method="POST">
+        <div class="form_cont">
+            <h4>Options: </h4>
+            <input class="form_inp", type="text" name="option">
+            <input class="button", type="Submit" value="Add Options">
+        </div>
+    </form>
+
+
+
+    <br>
+
+    <form class="some_form" action="/criteria" method="POST">
+        <div class="form_cont">
+            <h4>Criteria: </h4>
+            <input class="form_inp", type="text" name="criteria">
+            <input class="button", type="Submit" value="Add Criteria">
+        </div>
+    </form>
+
+    <hr>
+
+    <table class="table">
+        <thead class="thread-dark">
+            <tr>
+                <th scope="col">Criteria/ Options</th>
+                {% for opt_element in opt %}
+                <th>{{opt_element}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for cri_element in cri %}
+            <tr>
+                <th scope="row">
+                    {{cri_element}}
+                    <br>
+                    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                        <button type="button" class="btn btn-secondary">1</button>
+                        <button type="button" class="btn btn-secondary">2</button>
+                        <button type="button" class="btn btn-secondary">3</button>
+                    </div>
+                </th>
+                {% for opt_element in opt %}
+                    <td>
+                        <form class="Score_form" action="/score" method="POST">
+                            <input type="hidden" value="{{opt_element}}" name="cell_opt">
+                            <input type="hidden" value="{{cri_element}}" name="cell_cri">
+                            <input class="form_inp" type="number" name="score">
+                        </form>
+                        {{scr}}
+                    </td>
+                {% endfor %}
+            </tr>
+
+            {% endfor %}
+
+
+
+            <tr class="table-success">
+                <th scope="row">Final score</th>
+                {% for opt_element in opt %}
+                <td >
+                    <form class="Score_form" action="/final_score" method="POST">
+                        <input type="hidden" value="{{opt_element}}" name="cell_opt">
+                        <input class="button" type="Submit" value="Calculate final score">
+                    </form>
+                    <h4>The final score for {{cell_opt}} is: {{final_score}}</h4>
+                </td>
+                {% endfor %}
+
+            </tr>
+
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

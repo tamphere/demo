@@ -1,0 +1,54 @@
+html, body {
+    background-color: oldlace;
+    color: brown;
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.6em;
+}
+
+img{
+    margin-left:auto;
+}
+
+
+.content h1{
+    text.transform:uppercase;
+    Letter-spacing:0.2em;
+    word-spacing: 1em;
+}
+
+
+.some_form{
+    padding:20px
+}
+
+.form_inp{
+    padding:5px;
+}
+
+.button{
+    padding: 5px;
+    background-color:#f4f4f4
+    color: brown;
+}
+
+.button:hover{
+    background-color:brown;
+    color:#f4f4f4
+}
+
+.table{
+    width: 80%;
+    margin: auto;
+    background-color: oldlace;
+    color: brown;
+}
+
+
+
+.content {
+    margin: 10px;
+}

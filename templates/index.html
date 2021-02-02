@@ -12,7 +12,7 @@
         <img src="../static/image/kohi_main.png"
     </div>
 
-    <form class= "some_form", action="/" method="POST">
+    <form class= "some_form", action="/option" method="POST">
         <div class="form_cont">
             <h4>Options: </h4>
             <input class="form_inp", type="text" name="option">
@@ -60,9 +60,12 @@
                         <form class="Score_form" action="/score" method="POST">
                             <input type="hidden" value="{{opt_element}}" name="cell_opt">
                             <input type="hidden" value="{{cri_element}}" name="cell_cri">
-                            <input class="form_inp" type="number" name="score">
+                            {% if opt_element not in scr %}
+                                <input class="form_inp" value="" type="number" name="score">
+                            {% else %}
+                                <input class="form_inp" value="{{scr[opt_element][cri_element]}}" type="number" name="score">
+                            {% endif %}
                         </form>
-                        {{scr}}
                     </td>
                 {% endfor %}
             </tr>
@@ -72,15 +75,15 @@
 
 
             <tr class="table-success">
-                <th scope="row">Final score</th>
+                <th scope="row">
+                </th>
                 {% for opt_element in opt %}
-                <td >
-                    <form class="Score_form" action="/final_score" method="POST">
-                        <input type="hidden" value="{{opt_element}}" name="cell_opt">
-                        <input class="button" type="Submit" value="Calculate final score">
-                    </form>
-                    <h4>The final score for {{cell_opt}} is: {{final_score}}</h4>
-                </td>
+                    <td>
+                        <form class="Score_form" action="/score" method="POST">
+                            <input type="hidden" value="{{opt_element}}" name="cell_opt">
+                            <h4>The final score for {{opt_element}} is: {{f_score[opt_element]}}
+                        </form>
+                    </td>
                 {% endfor %}
 
             </tr>

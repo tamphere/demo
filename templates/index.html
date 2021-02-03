@@ -9,7 +9,7 @@
     <h1>Decision Making Tool</h1>
 
     <div class="img">
-        <img src="../static/image/kohi_main.png"
+        <img src="../static/image/kohi_main.png">
     </div>
 
     <form class= "some_form", action="/option" method="POST">
@@ -38,32 +38,35 @@
         <thead class="thread-dark">
             <tr>
                 <th scope="col">Criteria/ Options</th>
-                {% for opt_element in opt %}
-                <th>{{opt_element}}</th>
+                {% for opt in opt_list %}
+                <th>{{opt}}</th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% for cri_element in cri %}
+            {% for cri in cri_list %}
             <tr>
                 <th scope="row">
-                    {{cri_element}}
+                    {{cri}}
                     <br>
                     <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                        <button type="button" class="btn btn-secondary">1</button>
-                        <button type="button" class="btn btn-secondary">2</button>
-                        <button type="button" class="btn btn-secondary">3</button>
+                        <form class="Score_form" action="/priority" method="POST">
+                            <input type="hidden" value="{{cri}}" name="cell_criteria"/>
+                            <input type="submit" class="btn btn-secondary" value="1" name="priority"/>
+                            <input type="submit" class="btn btn-secondary" value="2" name="priority"/>
+                            <input type="submit" class="btn btn-secondary" value="3" name="priority"/>
+                        </form>
                     </div>
                 </th>
-                {% for opt_element in opt %}
+                {% for opt in opt_list %}
                     <td>
                         <form class="Score_form" action="/score" method="POST">
-                            <input type="hidden" value="{{opt_element}}" name="cell_opt">
-                            <input type="hidden" value="{{cri_element}}" name="cell_cri">
-                            {% if opt_element not in scr %}
+                            <input type="hidden" value="{{opt}}" name="cell_option">
+                            <input type="hidden" value="{{cri}}" name="cell_criteria">
+                            {% if opt not in s_dict %}
                                 <input class="form_inp" value="" type="number" name="score">
                             {% else %}
-                                <input class="form_inp" value="{{scr[opt_element][cri_element]}}" type="number" name="score">
+                                <input class="form_inp" value="{{s_dict[opt][cri]}}" type="number" name="score">
                             {% endif %}
                         </form>
                     </td>
@@ -72,17 +75,13 @@
 
             {% endfor %}
 
-
-
             <tr class="table-success">
                 <th scope="row">
                 </th>
-                {% for opt_element in opt %}
+                {% for opt in opt_list %}
                     <td>
-                        <form class="Score_form" action="/score" method="POST">
-                            <input type="hidden" value="{{opt_element}}" name="cell_opt">
-                            <h4>The final score for {{opt_element}} is: {{f_score[opt_element]}}
-                        </form>
+                            <input type="hidden" value="{{opt}}'" name="cell_option">
+                            <h4>The final score for '{{opt}}' is: {{fs_dict[opt]}}</h4>
                     </td>
                 {% endfor %}
 
